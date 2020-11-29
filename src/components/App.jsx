@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {v4 as uuidv4} from "uuid";
 
 import Header from "./Header";
 import Footer from "./Footer";
@@ -10,9 +11,17 @@ function App() {
   const [noteList, setList] = useState([]);
   
   function addNote(note){
+    note.id=uuidv4();
+
     setList(prev => {
       return [...prev, note];
     });
+  }
+
+  function deleteNote(id){
+    setList(prev => 
+      prev.filter(note => id !== note.id)
+    );
   }
 
 
@@ -21,7 +30,13 @@ function App() {
       <Header />
       <CreateArea submit={addNote}/>
       {noteList.map(note => {
-        return <Note key={1} title="Note title" content="Note content" /> 
+        return <Note 
+          id={note.id} 
+          title={note.title} 
+          content={note.content} 
+          deleteNote = {deleteNote}  
+        /> 
+          
       })}
       
       <Footer />

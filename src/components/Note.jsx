@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 
 function Note(props) {
  
@@ -6,7 +6,9 @@ function Note(props) {
     <div className="note">
       <h1>{props.title}</h1>
       <p>{props.content}</p>
-      <button>DELETE</button>
+      <button type="button" onClick={() => {
+        props.deleteNote(props.id)
+      }}>DELETE</button>
     </div>
   );
 }
